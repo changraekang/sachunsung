@@ -16,8 +16,9 @@ const KakaoShareButton = ({ correctCount, questions }) => {
       } else {
         console.log("Kakao is already initialized");
       }
-    } catch (e) {
+    } catch (error) {
       console.log("Kakao is not initialized");
+      console.error(error);
     }
   }, []);
   const description = correctCount + " / " + questions;
