@@ -1,4 +1,3 @@
-import totoro_1 from "../assets/images/totoro-1.png";
 import totoro_2 from "../assets/images/totoro-2.png";
 import totoro_3 from "../assets/images/totoro-3.png";
 import totoro_4 from "../assets/images/totoro-4.png";
@@ -27,8 +26,6 @@ const CustomSvgIcon = () => (
     </g>
   </svg>
 );
-const totoroImages = [totoro_2, totoro_3, totoro_4];
-
 export default function TotoroLoading({ count = 1 }) {
   const getImages = () => {
     const images = Array(6).fill(totoro_4); // 처음에 totoro_4로 채움
