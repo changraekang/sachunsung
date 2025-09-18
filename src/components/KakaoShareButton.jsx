@@ -26,7 +26,7 @@ const KakaoShareButton = ({ correctCount, questions }) => {
     Kakao.Link.sendDefault({
       objectType: "feed",
       content: {
-        title: "지브리풍 영화퀴즈",
+        title: "베게네 미니오락실",
         description: description,
         imageUrl: `https://assets.sparkling-rae.com/crab-game/crab-game-logo.png`,
         link: {
@@ -36,7 +36,7 @@ const KakaoShareButton = ({ correctCount, questions }) => {
       },
       buttons: [
         {
-          title: "나도 퀴즈풀러가기",
+          title: "베게네 미니오락실 놀러가기",
           link: {
             mobileWebUrl: url,
             webUrl: url,

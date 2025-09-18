@@ -6,40 +6,51 @@ const HomeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 20px;
+  padding: 20px 16px;
   min-height: 100vh;
   color: #5d4e37;
   font-family: "Arial", sans-serif;
   position: relative;
+  box-sizing: border-box;
 `;
 
 const Title = styled.h1`
-  font-size: 3rem;
-  margin-bottom: 2rem;
+  font-size: 2rem;
+  margin-bottom: 1rem;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   color: #8b7355;
   font-weight: 600;
   position: relative;
   z-index: 1;
+
+  @media (min-width: 768px) {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const GameGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
   max-width: 800px;
   width: 100%;
-  padding: 0 2rem;
   position: relative;
   z-index: 1;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 0 2rem;
+  }
 `;
 
 const GameCard = styled(Link)`
   background: rgba(255, 255, 255, 0.7);
   border: 2px solid rgba(139, 115, 85, 0.3);
   border-radius: 20px;
-  padding: 2rem;
+  padding: 1.5rem;
   text-decoration: none;
   color: #5d4e37;
   transition: all 0.3s ease;
@@ -47,6 +58,10 @@ const GameCard = styled(Link)`
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
 
   &::before {
     content: "";
@@ -80,30 +95,51 @@ const GameCard = styled(Link)`
 `;
 
 const GameTitle = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
   text-align: center;
   color: #8b7355;
   font-weight: 600;
   position: relative;
   z-index: 1;
+
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const GameDescription = styled.p`
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-align: center;
   opacity: 0.8;
   line-height: 1.6;
   color: #6b5b47;
   position: relative;
   z-index: 1;
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const LogoImage = styled.img`
+  width: 200px;
+  height: 200px;
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 2rem;
+  }
 `;
 
 const HomePage = () => {
   return (
     <HomeContainer>
       <Title>베게네 오락실</Title>
-      <img src={crab_game_logo} alt="베게네 오락실" width={300} height={300} />
+      <LogoImage src={crab_game_logo} alt="베게네 오락실" />
       <GameGrid>
         <GameCard to="/shisen-sho">
           <GameTitle>🀄 사천성</GameTitle>
