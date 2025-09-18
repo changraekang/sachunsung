@@ -2,27 +2,27 @@ import { forwardRef, memo, useCallback } from "react";
 import styled, { css, keyframes } from "styled-components";
 import type { Position, TileValue } from "../../lib/shisen/types";
 
-const TILE_SYMBOLS = [
-  "🍀",
-  "🌸",
-  "🌿",
-  "🌙",
-  "⭐",
-  "🍂",
-  "🌼",
-  "💮",
-  "🍁",
-  "🪴",
-  "🔮",
-  "🧿",
-  "☘️",
-  "💠",
-  "🎋",
-  "🧧",
-  "🍄",
-  "🌞",
-  "🌊",
-  "🪻",
+const TILE_IMAGES = [
+  "https://assets.sparkling-rae.com/crab-game/file/crab-1.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-2.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-3.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-4.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-5.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-6.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-7.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-8.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-9.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-10.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-11.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-12.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-13.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-14.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-15.webp",
+  "https://assets.sparkling-rae.com/crab-game/tile/crab-16.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-17.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-18.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-19.webp",
+  "https://assets.sparkling-rae.com/crab-game/file/crab-20.webp",
 ];
 
 const shake = keyframes`
@@ -52,10 +52,9 @@ const TileButton = styled.button<{
   background: ${({ theme }) => theme.colors.surface};
   color: ${({ theme }) => theme.colors.text};
   box-shadow: ${({ theme }) => theme.shadows.sm};
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  transition:
-    transform ${({ theme }) => theme.transitions.base},
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  transition: transform ${({ theme }) => theme.transitions.base},
     background-color ${({ theme }) => theme.transitions.base},
     box-shadow ${({ theme }) => theme.transitions.base},
     color ${({ theme }) => theme.transitions.base},
@@ -109,17 +108,11 @@ const TileButton = styled.button<{
   }
 `;
 
-const TileLabel = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  line-height: 1;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    font-size: ${({ theme }) => theme.fontSizes.lg};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    font-size: ${({ theme }) => theme.fontSizes.md};
-  }
+const TileImage = styled.img`
+  width: 40px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: ${({ theme }) => theme.radii.md};
 `;
 
 interface TileProps {
@@ -133,10 +126,22 @@ interface TileProps {
   onSelect(position: Position): void;
 }
 
-const getTileSymbol = (value: number) => TILE_SYMBOLS[value % TILE_SYMBOLS.length];
+const getTileImage = (value: number) => TILE_IMAGES[value % TILE_IMAGES.length];
 
 const TileComponent = forwardRef<HTMLButtonElement, TileProps>(
-  ({ value, position, isSelected, isHinted, isMismatch, isFocused, disabled, onSelect }, ref) => {
+  (
+    {
+      value,
+      position,
+      isSelected,
+      isHinted,
+      isMismatch,
+      isFocused,
+      disabled,
+      onSelect,
+    },
+    ref
+  ) => {
     const handleClick = useCallback(() => {
       if (disabled || value === null) {
         return;
@@ -160,10 +165,12 @@ const TileComponent = forwardRef<HTMLButtonElement, TileProps>(
         $isFocused={isFocused}
         tabIndex={isFocused && value !== null && !disabled ? 0 : -1}
       >
-        {value !== null ? <TileLabel aria-hidden>{getTileSymbol(value)}</TileLabel> : null}
+        {value !== null ? (
+          <TileImage src={getTileImage(value)} alt={`베게 ${value + 1}`} />
+        ) : null}
       </TileButton>
     );
-  },
+  }
 );
 
 TileComponent.displayName = "Tile";
