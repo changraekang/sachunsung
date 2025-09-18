@@ -37,6 +37,7 @@ const GameGrid = styled.div`
   max-width: 800px;
   width: 100%;
   position: relative;
+  align-items: center;
   z-index: 1;
 
   @media (min-width: 768px) {
@@ -58,6 +59,10 @@ const GameCard = styled(Link)`
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   @media (min-width: 768px) {
     padding: 2rem;
@@ -98,6 +103,9 @@ const GameTitle = styled.h2`
   font-size: 1.2rem;
   margin-bottom: 0.8rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #8b7355;
   font-weight: 600;
   position: relative;
@@ -142,7 +150,17 @@ const HomePage = () => {
       <LogoImage src={crab_game_logo} alt="베게네 오락실" />
       <GameGrid>
         <GameCard to="/shisen-sho">
-          <GameTitle>🀄 사천성</GameTitle>
+          <GameTitle>
+            <img
+              src={
+                "https://assets.sparkling-rae.com/crab-game/crab-shisen-sho.webp"
+              }
+              width={72}
+              height={72}
+              alt="사천성"
+            />
+            사천성
+          </GameTitle>
           <GameDescription>
             귀여운 베게들과 함께하는
             <br />
