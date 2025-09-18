@@ -5,12 +5,12 @@ import kakao_ico from "../assets/images/kakao_ico.png"; // Corrected import stat
 const { Kakao } = window;
 
 const KakaoShareButton = ({ correctCount, questions }) => {
-  const url = "https://ghibli.movie-hop.com";
+  const url = "https://crab-game.sparkling-rae.com/";
   const resultUrl = window.location.href;
   React.useEffect(() => {
     try {
       if (!Kakao.isInitialized()) {
-        Kakao.init("4056626004790c74276d8fbe866ad653");
+        Kakao.init("c26d1dfad60d03492f69054ba08132b1");
         Kakao.isInitialized();
         console.log("Kakao is initialized");
       } else {
@@ -28,7 +28,7 @@ const KakaoShareButton = ({ correctCount, questions }) => {
       content: {
         title: "지브리풍 영화퀴즈",
         description: description,
-        imageUrl: `https://assets.movie-hop.com/ghibli/ghibli-logo.webp`,
+        imageUrl: `https://assets.sparkling-rae.com/crab-game/crab-game-logo.png`,
         link: {
           mobileWebUrl: resultUrl,
           webUrl: resultUrl,
