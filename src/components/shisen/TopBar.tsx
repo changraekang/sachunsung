@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
 interface TopBarProps {
   timeRemaining: number;
@@ -63,15 +64,16 @@ const ButtonGroup = styled.div`
   gap: ${({ theme }) => theme.spacing[2]};
 `;
 
-const ActionButton = styled.button<{ $variant?: "primary" | "accent" | "warning" }>`
+const ActionButton = styled.button<{
+  $variant?: "primary" | "accent" | "warning";
+}>`
   border: none;
   border-radius: ${({ theme }) => theme.radii.lg};
   padding: ${({ theme }) => `${theme.spacing[1]} ${theme.spacing[2]}`};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   cursor: pointer;
-  transition:
-    transform ${({ theme }) => theme.transitions.base},
+  transition: transform ${({ theme }) => theme.transitions.base},
     box-shadow ${({ theme }) => theme.transitions.base},
     background-color ${({ theme }) => theme.transitions.base};
   box-shadow: ${({ theme }) => theme.shadows.xs};
@@ -101,6 +103,30 @@ const ActionButton = styled.button<{ $variant?: "primary" | "accent" | "warning"
     cursor: not-allowed;
     opacity: 0.6;
     box-shadow: none;
+  }
+`;
+
+const HomeButton = styled(Link)`
+  border: none;
+  border-radius: ${({ theme }) => theme.radii.lg};
+  padding: ${({ theme }) => `${theme.spacing[1]} ${theme.spacing[2]}`};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  cursor: pointer;
+  transition: transform ${({ theme }) => theme.transitions.base},
+    box-shadow ${({ theme }) => theme.transitions.base},
+    background-color ${({ theme }) => theme.transitions.base};
+  box-shadow: ${({ theme }) => theme.shadows.xs};
+  color: ${({ theme }) => theme.colors.onPrimary};
+  background: ${({ theme }) => theme.colors.primary};
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: translateY(-${({ theme }) => theme.spacing[1]});
+    box-shadow: ${({ theme }) => theme.shadows.sm};
   }
 `;
 
@@ -166,6 +192,7 @@ const TopBar = ({
         ) : null}
       </StatsGroup>
       <ButtonGroup>
+        <HomeButton to="/">🏠 홈</HomeButton>
         <ActionButton
           type="button"
           onClick={onHint}
