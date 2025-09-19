@@ -107,6 +107,7 @@ const GameTitle = styled.h2`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   color: #8b7355;
   font-weight: 600;
   position: relative;
@@ -116,6 +117,13 @@ const GameTitle = styled.h2`
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
+`;
+
+const GameEmoji = styled.span`
+  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const GameDescription = styled.p`
@@ -186,12 +194,17 @@ const HomePage = () => {
           </GameDescription>
         </GameCard>
 
-        <GameCard to="/coming-soon">
-          <GameTitle>🎯 새로운 게임</GameTitle>
+        <GameCard to="/ocean-run">
+          <GameTitle>
+            <GameEmoji role="img" aria-hidden="true">
+              🌊
+            </GameEmoji>
+            오션 런
+          </GameTitle>
           <GameDescription>
-            더 많은 베게들과 함께할
+            물살을 가르며 장애물을 피하는
             <br />
-            재미있는 게임들이 곧 출시됩니다!
+            캔버스 기반 미니게임!
           </GameDescription>
         </GameCard>
       </GameGrid>
