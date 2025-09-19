@@ -44,42 +44,42 @@ const OBSTACLE_ASSETS: ObstacleAsset[] = [
     color: "#8e9aaf",
     label: "상어",
     emoji: "🦈",
-    url: "/src/assets/images/상어-removebg-preview.png",
+    url: "https://assets.sparkling-rae.com/crab-game/ocean-run/상어.webp",
   },
   {
     id: "eel",
     color: "#9d4edd",
     label: "장어",
     emoji: "🐍",
-    url: "/src/assets/images/장어-removebg-preview.png",
+    url: "https://assets.sparkling-rae.com/crab-game/ocean-run/장어.webp",
   },
   {
     id: "fish",
     color: "#f6bd60",
     label: "물고기",
     emoji: "🐠",
-    url: "/src/assets/images/물고기-removebg-preview.png",
+    url: "https://assets.sparkling-rae.com/crab-game/ocean-run/물고기.webp",
   },
   {
     id: "urchin",
     color: "#f28482",
     label: "성게",
     emoji: "🦔",
-    url: "/src/assets/images/성게-removebg-preview.png",
+    url: "https://assets.sparkling-rae.com/crab-game/ocean-run/성게.webp",
   },
   {
     id: "octopus",
     color: "#00afb9",
     label: "문어",
     emoji: "🐙",
-    url: "/src/assets/images/문어-removebg-preview.png",
+    url: "https://assets.sparkling-rae.com/crab-game/ocean-run/문어.webp",
   },
 ];
 
 const FISH_ASSET: FishAsset = {
   color: "#f4a261",
   emoji: "🦀",
-  url: "/src/assets/images/베개아니고베게.png",
+  url: "https://assets.sparkling-rae.com/crab-game/ocean-run/베개아니고베게.webp",
 };
 
 const BASE_BACKGROUND_SPEED = 220;
