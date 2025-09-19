@@ -4,6 +4,7 @@ import { GlobalStyle } from "./styles/GlobalStyle";
 import { theme } from "./styles/theme";
 import HomePage from "./pages/HomePage";
 import ShisenSho from "./pages/ShisenSho";
+import CrabMemory from "./pages/CrabMemory";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/shisen-sho" element={<ShisenSho />} />
+          <Route path="/crab-memory" element={<CrabMemory />} />
         </Routes>
       </Router>
     </ThemeProvider>
