@@ -193,20 +193,6 @@ const HomePage = () => {
             다양한 난이도와 타이머에 도전하세요.
           </GameDescription>
         </GameCard>
-
-        <GameCard to="/ocean-run">
-          <GameTitle>
-            <GameEmoji role="img" aria-hidden="true">
-              🌊
-            </GameEmoji>
-            오션 런
-          </GameTitle>
-          <GameDescription>
-            물살을 가르며 장애물을 피하는
-            <br />
-            캔버스 기반 미니게임!
-          </GameDescription>
-        </GameCard>
       </GameGrid>
     </HomeContainer>
   );
