@@ -39,6 +39,12 @@ const TileButton = styled.button<{
     opacity ${({ theme }) => theme.transitions.base};
   cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -khtml-user-select: none;
   padding: ${({ theme }) => theme.spacing[2]};
   opacity: ${({ $isRemoved }) => ($isRemoved ? 0 : 1)};
   transform: ${({ $isRemoved }) => ($isRemoved ? "scale(0.8)" : "scale(1)")};
@@ -91,6 +97,14 @@ const TileImage = styled.img`
   height: 50px;
   object-fit: contain;
   border-radius: ${({ theme }) => theme.radii.md};
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -khtml-user-select: none;
 `;
 
 interface TileProps {
@@ -144,7 +158,11 @@ const TileComponent = forwardRef<HTMLButtonElement, TileProps>(
         tabIndex={isFocused && value !== null && !disabled ? 0 : -1}
       >
         {value !== null ? (
-          <TileImage src={getTileImage(value)} alt={`베게 ${value + 1}`} />
+          <TileImage
+            src={getTileImage(value)}
+            alt={`베게 ${value + 1}`}
+            draggable={false}
+          />
         ) : null}
       </TileButton>
     );

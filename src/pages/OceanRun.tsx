@@ -30,58 +30,58 @@ const BACKGROUND_ASSETS: BackgroundAsset[] = [
     id: "sunlight",
     color: "#0a3d62",
     accent: "#1d6fa3",
-    // url: "https://example.com/background-1.png",
+    url: "https://assets.sparkling-rae.com/crab-game/ocean-bg-1.webp",
   },
   {
     id: "reef",
     color: "#082a4d",
     accent: "#13426b",
-    // url: "https://example.com/background-2.png",
+    url: "https://assets.sparkling-rae.com/crab-game/ocean-bg-2.webp",
   },
 ];
 
 const OBSTACLE_ASSETS: ObstacleAsset[] = [
   {
-    id: "puffer",
+    id: "crab1",
     color: "#f6bd60",
-    label: "Puffer",
-    emoji: "🐡",
-    // url: "https://example.com/pufferfish.png",
+    label: "베게1",
+    emoji: "🦀",
+    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-1.webp",
   },
   {
-    id: "starfish",
+    id: "crab2",
     color: "#f28482",
-    label: "Starfish",
-    emoji: "⭐",
-    // url: "https://example.com/starfish.png",
+    label: "베게2",
+    emoji: "🦀",
+    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-2.webp",
   },
   {
-    id: "octopus",
+    id: "crab3",
     color: "#9d4edd",
-    label: "Octopus",
-    emoji: "🐙",
-    // url: "https://example.com/octopus.png",
+    label: "베게3",
+    emoji: "🦀",
+    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-3.webp",
   },
   {
-    id: "shark",
+    id: "crab4",
     color: "#8e9aaf",
-    label: "Shark",
-    emoji: "🦈",
-    // url: "https://example.com/shark.png",
+    label: "베게4",
+    emoji: "🦀",
+    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-4.webp",
   },
   {
-    id: "ray",
+    id: "crab5",
     color: "#00afb9",
-    label: "Ray",
-    emoji: "🪸",
-    // url: "https://example.com/ray.png",
+    label: "베게5",
+    emoji: "🦀",
+    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-5.webp",
   },
 ];
 
 const FISH_ASSET: FishAsset = {
   color: "#f4a261",
-  emoji: "🐠",
-  // url: "https://example.com/player-fish.png",
+  emoji: "🦀",
+  url: "https://assets.sparkling-rae.com/crab-game/crab-player.webp",
 };
 
 const BASE_BACKGROUND_SPEED = 220;
@@ -181,7 +181,7 @@ const checkCollision = (fish: GameState["fish"], obstacle: Obstacle) => {
 const drawBackgroundLayers = (
   ctx: CanvasRenderingContext2D,
   game: GameState,
-  images: (HTMLImageElement | null)[],
+  images: (HTMLImageElement | null)[]
 ) => {
   const { width, height, backgroundOffset } = game;
   if (width <= 0 || height <= 0) {
@@ -191,7 +191,8 @@ const drawBackgroundLayers = (
   const layers = BACKGROUND_ASSETS.length;
   const totalWidth = width * layers;
   const safeTotalWidth = totalWidth > 0 ? totalWidth : width;
-  const offset = ((backgroundOffset % safeTotalWidth) + safeTotalWidth) % safeTotalWidth;
+  const offset =
+    ((backgroundOffset % safeTotalWidth) + safeTotalWidth) % safeTotalWidth;
   const baseIndex = Math.floor(offset / width);
   const offsetWithin = offset % width;
 
@@ -213,8 +214,7 @@ const drawBackgroundLayers = (
       const bubbleCount = Math.max(8, Math.floor(width / 90));
       for (let bubble = 0; bubble < bubbleCount; bubble += 1) {
         const radius = (height / 120) * (0.75 + (bubble % 4) * 0.3);
-        const bubbleX =
-          drawX + ((bubble * 97 + (assetIndex + 1) * 53) % width);
+        const bubbleX = drawX + ((bubble * 97 + (assetIndex + 1) * 53) % width);
         const bubbleY = ((bubble * 67 + assetIndex * 23) % height) * 0.9;
         ctx.save();
         ctx.globalAlpha = 0.05 + (bubble % 3) * 0.04;
@@ -231,7 +231,7 @@ const drawBackgroundLayers = (
 const drawFishSprite = (
   ctx: CanvasRenderingContext2D,
   fish: GameState["fish"],
-  image: HTMLImageElement | null,
+  image: HTMLImageElement | null
 ) => {
   if (image) {
     ctx.drawImage(image, fish.x, fish.y, fish.width, fish.height);
@@ -249,7 +249,7 @@ const drawFishSprite = (
     fish.height / 2,
     0,
     0,
-    Math.PI * 2,
+    Math.PI * 2
   );
   ctx.fill();
 
@@ -263,12 +263,24 @@ const drawFishSprite = (
 
   ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
   ctx.beginPath();
-  ctx.arc(fish.width * 0.72, fish.height * 0.38, fish.height * 0.09, 0, Math.PI * 2);
+  ctx.arc(
+    fish.width * 0.72,
+    fish.height * 0.38,
+    fish.height * 0.09,
+    0,
+    Math.PI * 2
+  );
   ctx.fill();
 
   ctx.fillStyle = "#1f2933";
   ctx.beginPath();
-  ctx.arc(fish.width * 0.76, fish.height * 0.38, fish.height * 0.045, 0, Math.PI * 2);
+  ctx.arc(
+    fish.width * 0.76,
+    fish.height * 0.38,
+    fish.height * 0.045,
+    0,
+    Math.PI * 2
+  );
   ctx.fill();
 
   if (FISH_ASSET.emoji) {
@@ -276,7 +288,11 @@ const drawFishSprite = (
     ctx.font = `${Math.floor(fish.height * 0.7)}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(FISH_ASSET.emoji, fish.width / 2, fish.height / 2 + fish.height * 0.05);
+    ctx.fillText(
+      FISH_ASSET.emoji,
+      fish.width / 2,
+      fish.height / 2 + fish.height * 0.05
+    );
   }
 
   ctx.restore();
@@ -285,12 +301,18 @@ const drawFishSprite = (
 const drawObstacleSprite = (
   ctx: CanvasRenderingContext2D,
   obstacle: Obstacle,
-  image: HTMLImageElement | null,
+  image: HTMLImageElement | null
 ) => {
   const { type } = obstacle;
 
   if (image) {
-    ctx.drawImage(image, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+    ctx.drawImage(
+      image,
+      obstacle.x,
+      obstacle.y,
+      obstacle.width,
+      obstacle.height
+    );
     return;
   }
 
@@ -305,7 +327,7 @@ const drawObstacleSprite = (
     obstacle.height / 2,
     0,
     0,
-    Math.PI * 2,
+    Math.PI * 2
   );
   ctx.fill();
 
@@ -318,7 +340,11 @@ const drawObstacleSprite = (
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   const label = type.emoji ?? type.label;
-  ctx.fillText(label, obstacle.width / 2, obstacle.height / 2 + obstacle.height * 0.05);
+  ctx.fillText(
+    label,
+    obstacle.width / 2,
+    obstacle.height / 2 + obstacle.height * 0.05
+  );
 
   ctx.restore();
 };
@@ -328,7 +354,7 @@ const OceanRun = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
   const backgroundImagesRef = useRef<(HTMLImageElement | null)[]>(
-    new Array(BACKGROUND_ASSETS.length).fill(null),
+    new Array(BACKGROUND_ASSETS.length).fill(null)
   );
   const obstacleImagesRef = useRef<Record<string, HTMLImageElement | null>>({});
   const fishImageRef = useRef<HTMLImageElement | null>(null);
@@ -348,6 +374,8 @@ const OceanRun = () => {
   const isPausedRef = useRef(false);
   const isGameOverRef = useRef(false);
   const swimRequestRef = useRef(false);
+  const isHoldingRef = useRef(false);
+  const holdIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -449,14 +477,19 @@ const OceanRun = () => {
   }, []);
 
   const spawnObstacle = useCallback((game: GameState) => {
-    const asset = OBSTACLE_ASSETS[Math.floor(Math.random() * OBSTACLE_ASSETS.length)];
+    const asset =
+      OBSTACLE_ASSETS[Math.floor(Math.random() * OBSTACLE_ASSETS.length)];
     const baseSize = Math.max(game.height * 0.12, 48);
     const size = baseSize * (0.85 + Math.random() * 0.5);
     const width = size;
     const height = size;
     const verticalPadding = game.height * 0.08;
-    const maxY = Math.max(verticalPadding, game.height - height - verticalPadding);
-    const y = verticalPadding + Math.random() * Math.max(0, maxY - verticalPadding);
+    const maxY = Math.max(
+      verticalPadding,
+      game.height - height - verticalPadding
+    );
+    const y =
+      verticalPadding + Math.random() * Math.max(0, maxY - verticalPadding);
     const speedMultiplier = 0.6 + Math.random() * 0.5;
 
     game.obstacles.push({
@@ -480,13 +513,13 @@ const OceanRun = () => {
       game.elapsedTime += delta;
       const difficultyFactor = Math.min(
         MAX_DIFFICULTY_FACTOR,
-        1 + game.elapsedTime / 30,
+        1 + game.elapsedTime / 30
       );
       game.difficultyFactor = difficultyFactor;
       game.backgroundSpeed = BASE_BACKGROUND_SPEED * difficultyFactor;
       game.spawnInterval = Math.max(
         MIN_SPAWN_INTERVAL,
-        BASE_SPAWN_INTERVAL / difficultyFactor,
+        BASE_SPAWN_INTERVAL / difficultyFactor
       );
 
       const level = Math.min(10, 1 + Math.floor(game.elapsedTime / 12));
@@ -514,7 +547,10 @@ const OceanRun = () => {
         return;
       }
 
-      const totalScrollWidth = Math.max(game.width * BACKGROUND_ASSETS.length, game.width);
+      const totalScrollWidth = Math.max(
+        game.width * BACKGROUND_ASSETS.length,
+        game.width
+      );
       game.backgroundOffset += game.backgroundSpeed * delta;
       if (game.backgroundOffset >= totalScrollWidth) {
         game.backgroundOffset -= totalScrollWidth;
@@ -547,7 +583,7 @@ const OceanRun = () => {
         }
       }
     },
-    [endGame, spawnObstacle, setDifficultyLevel, setScore],
+    [endGame, spawnObstacle, setDifficultyLevel, setScore]
   );
 
   const drawGame = useCallback(() => {
@@ -568,7 +604,12 @@ const OceanRun = () => {
     drawFishSprite(ctx, game.fish, fishImageRef.current);
 
     const seabedHeight = Math.max(32, game.height * 0.08);
-    const gradient = ctx.createLinearGradient(0, game.height - seabedHeight, 0, game.height);
+    const gradient = ctx.createLinearGradient(
+      0,
+      game.height - seabedHeight,
+      0,
+      game.height
+    );
     gradient.addColorStop(0, "rgba(9, 34, 68, 0)");
     gradient.addColorStop(1, "rgba(9, 34, 68, 0.55)");
     ctx.fillStyle = gradient;
@@ -634,12 +675,53 @@ const OceanRun = () => {
     swimRequestRef.current = true;
   }, []);
 
+  const startHolding = useCallback(() => {
+    if (isPausedRef.current || isGameOverRef.current || isHoldingRef.current) {
+      return;
+    }
+    isHoldingRef.current = true;
+    requestSwim();
+
+    // 0.1초마다 계속 헤엄치기
+    holdIntervalRef.current = setInterval(() => {
+      if (isPausedRef.current || isGameOverRef.current) {
+        stopHolding();
+        return;
+      }
+      requestSwim();
+    }, 100);
+  }, [requestSwim]);
+
+  const stopHolding = useCallback(() => {
+    isHoldingRef.current = false;
+    if (holdIntervalRef.current) {
+      clearInterval(holdIntervalRef.current);
+      holdIntervalRef.current = null;
+    }
+  }, []);
+
   const handlePointerDown = useCallback(
     (event: ReactPointerEvent<HTMLCanvasElement>) => {
       event.preventDefault();
-      requestSwim();
+      startHolding();
     },
-    [requestSwim],
+    [startHolding]
+  );
+
+  const handlePointerUp = useCallback(
+    (event: ReactPointerEvent<HTMLCanvasElement>) => {
+      event.preventDefault();
+      stopHolding();
+    },
+    [stopHolding]
+  );
+
+  const handlePointerLeave = useCallback(
+    (event: ReactPointerEvent<HTMLCanvasElement>) => {
+      event.preventDefault();
+      stopHolding();
+    },
+    [stopHolding]
   );
 
   const togglePause = useCallback(() => {
@@ -740,16 +822,18 @@ const OceanRun = () => {
 
   return (
     <PageWrapper>
-      <Heading>오션 런</Heading>
-      <SubHeading>터치·클릭 또는 Space/↑ 키로 물고기를 조종해 장애물을 피해보세요!</SubHeading>
+      <Heading>베게 런</Heading>
+      <SubHeading>
+        터치·클릭 또는 Space/↑ 키로 베게를 조종해 다른 베게들을 피해보세요!
+      </SubHeading>
       <CanvasSection ref={containerRef}>
         <GameCanvas
           ref={canvasRef}
           role="img"
-          aria-label="Ocean Run 게임 캔버스"
+          aria-label="베게 런 게임 캔버스"
           onPointerDown={handlePointerDown}
-          onPointerUp={(event) => event.preventDefault()}
-          onPointerLeave={(event) => event.preventDefault()}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerLeave}
           tabIndex={0}
         />
         <CanvasOverlay>
@@ -789,7 +873,11 @@ const OceanRun = () => {
             </ModalBackdrop>
           )}
           <FloatingControls>
-            <ControlButton type="button" onClick={togglePause} disabled={isGameOver}>
+            <ControlButton
+              type="button"
+              onClick={togglePause}
+              disabled={isGameOver}
+            >
               {isPaused ? "재개 (P)" : "일시정지 (P)"}
             </ControlButton>
             <ControlButton type="button" onClick={restartGame}>
@@ -803,7 +891,8 @@ const OceanRun = () => {
           <InfoTitle>조작 방법</InfoTitle>
           <InfoList>
             <InfoItem>
-              <Highlight>터치/클릭</Highlight> 또는 <Highlight>Space / ↑</Highlight> : 위로 헤엄치기
+              <Highlight>터치/클릭</Highlight> 또는{" "}
+              <Highlight>Space / ↑</Highlight> : 위로 헤엄치기 (꾹 누르면 계속!)
             </InfoItem>
             <InfoItem>
               <Highlight>P</Highlight> : 일시정지 / 재개
@@ -817,13 +906,16 @@ const OceanRun = () => {
           <InfoTitle>게임 팁</InfoTitle>
           <InfoList>
             <InfoItem>
-              시간이 지날수록 <Highlight>속도</Highlight>와 <Highlight>장애물 등장</Highlight>이 빨라져요.
+              시간이 지날수록 <Highlight>속도</Highlight>와{" "}
+              <Highlight>베게 등장</Highlight>이 빨라져요.
             </InfoItem>
             <InfoItem>
-              화면 왼쪽 상단에서 <Highlight>점수</Highlight>와 <Highlight>최고점</Highlight>을 확인해 보세요.
+              화면 왼쪽 상단에서 <Highlight>점수</Highlight>와{" "}
+              <Highlight>최고점</Highlight>을 확인해 보세요.
             </InfoItem>
             <InfoItem>
-              배경/장애물 이미지는 파일 상단의 <Highlight>url</Highlight> 값을 바꾸면 간편하게 교체할 수 있어요.
+              모바일에서는 <Highlight>터치를 꾹 누르면</Highlight> 계속 위로
+              올라갑니다!
             </InfoItem>
           </InfoList>
         </InfoCard>
@@ -1091,4 +1183,3 @@ const Highlight = styled.span`
 `;
 
 export default OceanRun;
-
