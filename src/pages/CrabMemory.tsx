@@ -125,7 +125,9 @@ const CrabMemory = () => {
   const [timeLeft, setTimeLeft] = useState(TIMER_SECONDS);
   const [hasWon, setHasWon] = useState(false);
   const [statusText, setStatusText] = useState("카드를 뒤집어 시작하세요.");
-  const [rankings, setRankings] = useState<RankingEntry[]>(() => loadRankings());
+  const [rankings, setRankings] = useState<RankingEntry[]>(() =>
+    loadRankings()
+  );
 
   const audioMap = useMemo(createAudioMap, []);
 
@@ -356,10 +358,7 @@ const CrabMemory = () => {
         .slice(0, 5);
 
       if (typeof window !== "undefined") {
-        window.localStorage.setItem(
-          RANKINGS_KEY,
-          JSON.stringify(updated)
-        );
+        window.localStorage.setItem(RANKINGS_KEY, JSON.stringify(updated));
       }
 
       return updated;
@@ -399,7 +398,15 @@ const CrabMemory = () => {
       setSelectedIds((value) => [...value, cardId]);
       playSound("flip");
     },
-    [cards, hasWon, timerEnabled, timeLeft, selectedIds.length, startTime, playSound]
+    [
+      cards,
+      hasWon,
+      timerEnabled,
+      timeLeft,
+      selectedIds.length,
+      startTime,
+      playSound,
+    ]
   );
 
   const handleDifficultyChange = (value: Difficulty) => {
@@ -455,10 +462,14 @@ const CrabMemory = () => {
         <ControlGroup>
           <ControlLabel>난이도</ControlLabel>
           <DifficultyList>
-            {(Object.entries(DIFFICULTY_SETTINGS) as Array<[
-              Difficulty,
-              { label: string; mobilePairs: number; desktopPairs: number }
-            ]>).map(([value, config]) => (
+            {(
+              Object.entries(DIFFICULTY_SETTINGS) as Array<
+                [
+                  Difficulty,
+                  { label: string; mobilePairs: number; desktopPairs: number }
+                ]
+              >
+            ).map(([value, config]) => (
               <DifficultyButton
                 key={value}
                 type="button"
@@ -536,7 +547,15 @@ const CrabMemory = () => {
                   <CardImage src={card.image} alt="베게 친구" />
                 </CardFace>
               ) : (
-                <CardBack>🦀</CardBack>
+                <CardBack>
+                  {" "}
+                  <img
+                    src={TILE_IMAGES[0]}
+                    width={72}
+                    height={72}
+                    alt="크랩 메모리"
+                  />
+                </CardBack>
               )}
             </CardButton>
           );
@@ -546,7 +565,9 @@ const CrabMemory = () => {
       <RankingsSection>
         <RankingsHeader>🏆 TOP 5 기록</RankingsHeader>
         {rankings.length === 0 ? (
-          <EmptyRankings>아직 기록이 없습니다. 지금 도전해 보세요!</EmptyRankings>
+          <EmptyRankings>
+            아직 기록이 없습니다. 지금 도전해 보세요!
+          </EmptyRankings>
         ) : (
           <RankingsList>
             {rankings.map((entry, index) => (
@@ -554,7 +575,7 @@ const CrabMemory = () => {
                 <RankingOrder>{index + 1}</RankingOrder>
                 <RankingDetails>
                   <RankingPrimary>
-                    {DIFFICULTY_SETTINGS[entry.difficulty].label} · {" "}
+                    {DIFFICULTY_SETTINGS[entry.difficulty].label} ·{" "}
                     {formatTime(entry.time)} · {entry.moves}회
                   </RankingPrimary>
                   <RankingSecondary>
@@ -818,7 +839,7 @@ const CardBack = styled.div`
   justify-content: center;
   font-size: ${({ theme }) => theme.fontSizes.xl};
   border-radius: ${({ theme }) => theme.radii.md};
-  background: linear-gradient(135deg, #f8d9a0, #f2a86a);
+  background: ${({ theme }) => theme.colors.bg};
   color: #ffffff;
 `;
 
