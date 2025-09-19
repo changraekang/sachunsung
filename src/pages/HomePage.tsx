@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import crab_game_logo from "../assets/images/crab-game-logo.png";
+import { TILE_IMAGES } from "../constants/crabImages";
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -165,6 +166,23 @@ const HomePage = () => {
             귀여운 베게들과 함께하는
             <br />
             전통 사천성 게임!
+          </GameDescription>
+        </GameCard>
+
+        <GameCard to="/crab-memory">
+          <GameTitle>
+            <img
+              src={TILE_IMAGES[0]}
+              width={72}
+              height={72}
+              alt="크랩 메모리"
+            />
+            크랩 메모리
+          </GameTitle>
+          <GameDescription>
+            짝을 맞추며 기억력을 테스트!
+            <br />
+            다양한 난이도와 타이머에 도전하세요.
           </GameDescription>
         </GameCard>
 
