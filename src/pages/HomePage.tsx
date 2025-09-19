@@ -107,6 +107,7 @@ const GameTitle = styled.h2`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   color: #8b7355;
   font-weight: 600;
   position: relative;
@@ -116,6 +117,13 @@ const GameTitle = styled.h2`
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
+`;
+
+const GameEmoji = styled.span`
+  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const GameDescription = styled.p`
@@ -183,15 +191,6 @@ const HomePage = () => {
             짝을 맞추며 기억력을 테스트!
             <br />
             다양한 난이도와 타이머에 도전하세요.
-          </GameDescription>
-        </GameCard>
-
-        <GameCard to="/coming-soon">
-          <GameTitle>🎯 새로운 게임</GameTitle>
-          <GameDescription>
-            더 많은 베게들과 함께할
-            <br />
-            재미있는 게임들이 곧 출시됩니다!
           </GameDescription>
         </GameCard>
       </GameGrid>
