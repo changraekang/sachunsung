@@ -548,13 +548,7 @@ const CrabMemory = () => {
                 </CardFace>
               ) : (
                 <CardBack>
-                  {" "}
-                  <img
-                    src={TILE_IMAGES[0]}
-                    width={72}
-                    height={72}
-                    alt="크랩 메모리"
-                  />
+                  <CardBackImage src={TILE_IMAGES[0]} alt="크랩 메모리" />
                 </CardBack>
               )}
             </CardButton>
@@ -788,7 +782,7 @@ const BoardGrid = styled.div<{ $templateColumns: string }>`
 
 const CardButton = styled.button<{ $isFlipped: boolean; $isMatched: boolean }>`
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 120px;
   border-radius: ${({ theme }) => theme.radii.lg};
   border: none;
   padding: ${({ theme }) => theme.spacing[2]};
@@ -802,6 +796,7 @@ const CardButton = styled.button<{ $isFlipped: boolean; $isMatched: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 
   &:hover {
     transform: translateY(-4px);
@@ -826,9 +821,17 @@ const CardFace = styled.div`
 `;
 
 const CardImage = styled.img`
-  width: 70%;
-  height: 70%;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -khtml-user-select: none;
 `;
 
 const CardBack = styled.div`
@@ -841,6 +844,21 @@ const CardBack = styled.div`
   border-radius: ${({ theme }) => theme.radii.md};
   background: ${({ theme }) => theme.colors.bg};
   color: #ffffff;
+  overflow: hidden;
+`;
+
+const CardBackImage = styled.img`
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -khtml-user-select: none;
 `;
 
 const RankingsSection = styled.section`

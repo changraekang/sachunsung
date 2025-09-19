@@ -30,58 +30,56 @@ const BACKGROUND_ASSETS: BackgroundAsset[] = [
     id: "sunlight",
     color: "#0a3d62",
     accent: "#1d6fa3",
-    url: "https://assets.sparkling-rae.com/crab-game/ocean-bg-1.webp",
   },
   {
     id: "reef",
     color: "#082a4d",
     accent: "#13426b",
-    url: "https://assets.sparkling-rae.com/crab-game/ocean-bg-2.webp",
   },
 ];
 
 const OBSTACLE_ASSETS: ObstacleAsset[] = [
   {
-    id: "crab1",
-    color: "#f6bd60",
-    label: "베게1",
-    emoji: "🦀",
-    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-1.webp",
-  },
-  {
-    id: "crab2",
-    color: "#f28482",
-    label: "베게2",
-    emoji: "🦀",
-    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-2.webp",
-  },
-  {
-    id: "crab3",
-    color: "#9d4edd",
-    label: "베게3",
-    emoji: "🦀",
-    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-3.webp",
-  },
-  {
-    id: "crab4",
+    id: "shark",
     color: "#8e9aaf",
-    label: "베게4",
-    emoji: "🦀",
-    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-4.webp",
+    label: "상어",
+    emoji: "🦈",
+    url: "/src/assets/images/상어-removebg-preview.png",
   },
   {
-    id: "crab5",
+    id: "eel",
+    color: "#9d4edd",
+    label: "장어",
+    emoji: "🐍",
+    url: "/src/assets/images/장어-removebg-preview.png",
+  },
+  {
+    id: "fish",
+    color: "#f6bd60",
+    label: "물고기",
+    emoji: "🐠",
+    url: "/src/assets/images/물고기-removebg-preview.png",
+  },
+  {
+    id: "urchin",
+    color: "#f28482",
+    label: "성게",
+    emoji: "🦔",
+    url: "/src/assets/images/성게-removebg-preview.png",
+  },
+  {
+    id: "octopus",
     color: "#00afb9",
-    label: "베게5",
-    emoji: "🦀",
-    url: "https://assets.sparkling-rae.com/crab-game/crab-obstacle-5.webp",
+    label: "문어",
+    emoji: "🐙",
+    url: "/src/assets/images/문어-removebg-preview.png",
   },
 ];
 
 const FISH_ASSET: FishAsset = {
   color: "#f4a261",
   emoji: "🦀",
-  url: "https://assets.sparkling-rae.com/crab-game/crab-player.webp",
+  url: "/src/assets/images/베개아니고베게.png",
 };
 
 const BASE_BACKGROUND_SPEED = 220;
@@ -821,8 +819,24 @@ const OceanRun = () => {
   }, [drawGame, resizeCanvas, restartGame, updateGame]);
 
   return (
-    <PageWrapper>
-      <Heading>베게 런</Heading>
+    <PageWrapper onContextMenu={(e) => e.preventDefault()}>
+      <HeaderSection>
+        <Heading>베게 런</Heading>
+        <ScoreDisplay>
+          <ScoreItem>
+            <ScoreLabel>점수</ScoreLabel>
+            <ScoreValue>{score}</ScoreValue>
+          </ScoreItem>
+          <ScoreItem>
+            <ScoreLabel>최고점</ScoreLabel>
+            <ScoreValue>{highScore}</ScoreValue>
+          </ScoreItem>
+          <ScoreItem>
+            <ScoreLabel>난이도</ScoreLabel>
+            <ScoreValue>Lv.{difficultyLevel}</ScoreValue>
+          </ScoreItem>
+        </ScoreDisplay>
+      </HeaderSection>
       <SubHeading>
         터치·클릭 또는 Space/↑ 키로 베게를 조종해 다른 베게들을 피해보세요!
       </SubHeading>
@@ -837,17 +851,6 @@ const OceanRun = () => {
           tabIndex={0}
         />
         <CanvasOverlay>
-          <ScoreHud role="status" aria-live="polite">
-            <ScoreRow>
-              <ScoreLabel>점수</ScoreLabel>
-              <ScoreValue>{score}</ScoreValue>
-            </ScoreRow>
-            <ScoreRow>
-              <ScoreLabel>최고점</ScoreLabel>
-              <ScoreValue>{highScore}</ScoreValue>
-            </ScoreRow>
-            <DifficultyTag>난이도 Lv.{difficultyLevel}</DifficultyTag>
-          </ScoreHud>
           {!isGameOver && isPaused && (
             <CenterMessage>
               <CenterTitle>일시정지</CenterTitle>
@@ -936,12 +939,65 @@ const PageWrapper = styled.div`
     ${({ theme }) => theme.colors.sky} 0%,
     ${({ theme }) => theme.colors.background} 100%
   );
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -khtml-user-select: none;
+`;
+
+const HeaderSection = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
 `;
 
 const Heading = styled.h1`
   font-size: clamp(2rem, 5vw, 3rem);
   margin: 0;
   color: ${({ theme }) => theme.colors.text};
+`;
+
+const ScoreDisplay = styled.div`
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: ${({ theme }) => theme.radii.lg};
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: black;
+  @media (max-width: 768px) {
+    gap: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+`;
+
+const ScoreItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+`;
+
+const ScoreLabel = styled.span`
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+`;
+
+const ScoreValue = styled.span`
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const SubHeading = styled.p`
@@ -968,6 +1024,13 @@ const GameCanvas = styled.canvas`
   cursor: pointer;
   touch-action: none;
   outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -khtml-user-select: none;
 
   &:focus-visible {
     outline: 3px solid ${({ theme }) => theme.colors.primary};
@@ -982,47 +1045,6 @@ const CanvasOverlay = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const ScoreHud = styled.div`
-  pointer-events: none;
-  align-self: flex-start;
-  margin: clamp(0.75rem, 2vw, 1.5rem);
-  padding: clamp(0.75rem, 2vw, 1.2rem) clamp(1rem, 2.5vw, 1.6rem);
-  background: rgba(7, 31, 56, 0.6);
-  color: #f1fbff;
-  border-radius: ${({ theme }) => theme.radii.lg};
-  backdrop-filter: blur(6px);
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  min-width: 160px;
-`;
-
-const ScoreRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-`;
-
-const ScoreLabel = styled.span`
-  font-size: 0.9rem;
-  opacity: 0.85;
-`;
-
-const ScoreValue = styled.span`
-  font-size: 1.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-`;
-
-const DifficultyTag = styled.span`
-  align-self: flex-start;
-  margin-top: 0.25rem;
-  font-size: 0.85rem;
-  font-weight: ${({ theme }) => theme.fontWeights.medium};
-  background: rgba(255, 255, 255, 0.12);
-  padding: 0.35rem 0.75rem;
-  border-radius: ${({ theme }) => theme.radii.full};
 `;
 
 const FloatingControls = styled.div`
