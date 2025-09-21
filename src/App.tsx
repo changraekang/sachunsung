@@ -5,6 +5,7 @@ import { theme } from "./styles/theme";
 import HomePage from "./pages/HomePage";
 import ShisenSho from "./pages/ShisenSho";
 import CrabMemory from "./pages/CrabMemory";
+import OceanRun from "./pages/OceanRun";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/shisen-sho" element={<ShisenSho />} />
           <Route path="/crab-memory" element={<CrabMemory />} />
+          <Route path="/ocean-run" element={<OceanRun />} />
         </Routes>
       </Router>
     </ThemeProvider>
