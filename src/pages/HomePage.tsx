@@ -193,6 +193,20 @@ const HomePage = () => {
             다양한 난이도와 타이머에 도전하세요.
           </GameDescription>
         </GameCard>
+
+        <GameCard to="/sleep-test">
+          <GameTitle>
+            <GameEmoji role="img" aria-label="수면구분법 테스트">
+              🦀
+            </GameEmoji>
+            수면구분법 테스트
+          </GameTitle>
+          <GameDescription>
+            잠버릇으로 알아보는 나의 게 타입!
+            <br />
+            16문항 테스트로 수면 팁을 받아보세요.
+          </GameDescription>
+        </GameCard>
       </GameGrid>
     </HomeContainer>
   );
