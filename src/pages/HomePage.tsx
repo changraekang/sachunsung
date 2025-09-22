@@ -158,25 +158,40 @@ const HomePage = () => {
       <Title>베게네 오락실</Title>
       <LogoImage src={crab_game_logo} alt="베게네 오락실" />
       <GameGrid>
-        <GameCard to="/shisen-sho">
+        <GameCard to="/sleep-test">
+          <GameTitle>
+            <img
+              src={"https://assets.sparkling-rae.com/crab-game/sleep-crab.png"}
+              width={72}
+              height={72}
+              alt="내 수면타입 알아보게"
+            />
+            수면구분법 테스트
+          </GameTitle>
+          <GameDescription>
+            잠버릇으로 알아보는 나의 게 타입!
+            <br />
+            16문항 테스트로 수면 팁을 받아보세요.
+          </GameDescription>
+        </GameCard>
+        <GameCard to="/ocean-run">
           <GameTitle>
             <img
               src={
-                "https://assets.sparkling-rae.com/crab-game/crab-shisen-sho.webp"
+                "https://assets.sparkling-rae.com/crab-game/crab-ocean-run.png"
               }
               width={72}
               height={72}
-              alt="사천성"
+              alt="오션 런"
             />
-            사천성
+            오션 런
           </GameTitle>
           <GameDescription>
-            귀여운 베게들과 함께하는
+            바닷가를 헤엄치는 베게
             <br />
-            전통 사천성 게임!
+            장애물들을 피해 기록을 세워보게
           </GameDescription>
         </GameCard>
-
         <GameCard to="/crab-memory">
           <GameTitle>
             <img
@@ -193,18 +208,22 @@ const HomePage = () => {
             다양한 난이도와 타이머에 도전하세요.
           </GameDescription>
         </GameCard>
-
-        <GameCard to="/sleep-test">
+        <GameCard to="/shisen-sho">
           <GameTitle>
-            <GameEmoji role="img" aria-label="수면구분법 테스트">
-              🦀
-            </GameEmoji>
-            수면구분법 테스트
+            <img
+              src={
+                "https://assets.sparkling-rae.com/crab-game/crab-shisen-sho.webp"
+              }
+              width={72}
+              height={72}
+              alt="사천성"
+            />
+            사천성
           </GameTitle>
           <GameDescription>
-            잠버릇으로 알아보는 나의 게 타입!
+            귀여운 베게들과 함께하는
             <br />
-            16문항 테스트로 수면 팁을 받아보세요.
+            전통 사천성 게임!
           </GameDescription>
         </GameCard>
       </GameGrid>

@@ -4,12 +4,12 @@ import styled from "styled-components";
 import {
   AXIS_LETTER_MAP,
   AXIS_ORDER,
-  SLEEP_CHARACTER_EMOJI,
   SLEEP_QUESTIONS,
   SLEEP_RESULT_TYPES,
   SleepLetter,
   SleepResultType,
 } from "../constants/sleepTestData";
+import SleepKakaoShareButton from "../components/SleepKakaoShareButton";
 
 type Stage = "intro" | "quiz" | "result";
 
@@ -64,7 +64,8 @@ const SleepTest = () => {
 
     const axisLetters = AXIS_LETTER_MAP[currentQuestion.axis];
     const yesLetter = currentQuestion.yes;
-    const noLetter = axisLetters[0] === yesLetter ? axisLetters[1] : axisLetters[0];
+    const noLetter =
+      axisLetters[0] === yesLetter ? axisLetters[1] : axisLetters[0];
     const selectedLetter = isYes ? yesLetter : noLetter;
 
     const updatedScores = {
@@ -90,10 +91,13 @@ const SleepTest = () => {
       <Content>
         {stage === "intro" && (
           <IntroCard>
-            <IntroTitle>🦀 수면구분법 테스트</IntroTitle>
-            <IntroDescription>
-              나는 어떤 잠버릇 타입일까? 총 16문항으로 알아보는 수면 성격 테스트!
-            </IntroDescription>
+            <img
+              src={"https://assets.sparkling-rae.com/crab-game/sleep-crab.png"}
+              width={300}
+              height={300}
+              alt="내 수면타입 알아보게"
+            />
+            <IntroTitle>내 수면타입 알아보게</IntroTitle>
             <StartButton type="button" onClick={handleStart}>
               시작하기
             </StartButton>
@@ -117,7 +121,11 @@ const SleepTest = () => {
               <OptionButton type="button" onClick={() => handleAnswer(true)}>
                 예
               </OptionButton>
-              <OptionButton type="button" $variant="outline" onClick={() => handleAnswer(false)}>
+              <OptionButton
+                type="button"
+                $variant="outline"
+                onClick={() => handleAnswer(false)}
+              >
                 아니오
               </OptionButton>
             </OptionGroup>
@@ -129,11 +137,12 @@ const SleepTest = () => {
             <CodeBadge>{result.code}</CodeBadge>
             <CharacterArt>
               {result.image ? (
-                <CharacterImage src={result.image} alt={`${result.name} 캐릭터`} loading="lazy" />
+                <CharacterImage
+                  src={result.image}
+                  alt={`${result.name} 캐릭터`}
+                  loading="lazy"
+                />
               ) : null}
-              <CharacterEmoji role="img" aria-label="게 캐릭터">
-                {SLEEP_CHARACTER_EMOJI}
-              </CharacterEmoji>
             </CharacterArt>
             <ResultName>{result.name}</ResultName>
             <ResultDescription>{result.desc}</ResultDescription>
@@ -147,6 +156,7 @@ const SleepTest = () => {
               </PrimaryAction>
               <HomeAction to="/">홈으로</HomeAction>
             </ResultActions>
+            <SleepKakaoShareButton sleepResult={result} />
           </ResultCard>
         )}
       </Content>
@@ -154,7 +164,9 @@ const SleepTest = () => {
   );
 };
 
-const determineResult = (score: Record<SleepLetter, number>): SleepResultType => {
+const determineResult = (
+  score: Record<SleepLetter, number>
+): SleepResultType => {
   const code = AXIS_ORDER.map((axis) => {
     const [first, second] = AXIS_LETTER_MAP[axis];
     return score[first] >= score[second] ? first : second;
@@ -178,7 +190,7 @@ const determineResult = (score: Record<SleepLetter, number>): SleepResultType =>
 const PageWrapper = styled.div`
   min-height: 100vh;
   padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 6vw, 3rem);
-  background: linear-gradient(160deg, #f7f8fb 0%, #f1f7ec 35%, #f8f0fb 100%);
+  width: 400px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -207,7 +219,11 @@ const CardBase = styled.section`
 `;
 
 const IntroCard = styled(CardBase)`
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 251, 243, 0.95) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(247, 251, 243, 0.95) 100%
+  );
 `;
 
 const IntroTitle = styled.h1`
@@ -245,6 +261,7 @@ const StartButton = styled.button`
 const QuizCard = styled(CardBase)`
   align-items: stretch;
   text-align: left;
+  width: 400px;
   gap: clamp(1.5rem, 3vw, 2rem);
 `;
 
@@ -298,11 +315,17 @@ const OptionButton = styled.button<{ $variant?: "outline" }>`
   padding: 1rem 1.25rem;
   font-size: 1.05rem;
   font-weight: 600;
-  border: ${({ $variant }) => ($variant === "outline" ? "2px solid #9ab6c0" : "none")};
-  background: ${({ $variant }) => ($variant === "outline" ? "#ffffff" : "linear-gradient(135deg, #9bd0b4 0%, #84b7f0 100%)")};
+  border: ${({ $variant }) =>
+    $variant === "outline" ? "2px solid #9ab6c0" : "none"};
+  background: ${({ $variant }) =>
+    $variant === "outline"
+      ? "#ffffff"
+      : "linear-gradient(135deg, #9bd0b4 0%, #84b7f0 100%)"};
   color: ${({ $variant }) => ($variant === "outline" ? "#5c708d" : "#ffffff")};
   box-shadow: ${({ $variant }) =>
-    $variant === "outline" ? "0 6px 16px rgba(154, 182, 192, 0.18)" : "0 12px 28px rgba(124, 176, 185, 0.3)"};
+    $variant === "outline"
+      ? "0 6px 16px rgba(154, 182, 192, 0.18)"
+      : "0 12px 28px rgba(124, 176, 185, 0.3)"};
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
@@ -335,12 +358,17 @@ const CharacterArt = styled.div`
   width: clamp(160px, 40vw, 200px);
   height: clamp(160px, 40vw, 200px);
   border-radius: 36px;
-  background: linear-gradient(180deg, rgba(246, 255, 243, 0.9) 0%, rgba(211, 235, 255, 0.9) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(246, 255, 243, 0.9) 0%,
+    rgba(211, 235, 255, 0.9) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.55), 0 20px 45px rgba(124, 161, 194, 0.25);
+  box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.55),
+    0 20px 45px rgba(124, 161, 194, 0.25);
 `;
 
 const CharacterImage = styled.img`

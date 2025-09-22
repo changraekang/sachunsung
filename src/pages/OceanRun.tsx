@@ -76,6 +76,38 @@ const OBSTACLE_ASSETS: ObstacleAsset[] = [
   },
 ];
 
+// 천장 전용 장애물들
+const CEILING_OBSTACLE_ASSETS: ObstacleAsset[] = [
+  {
+    id: "ceiling-shark",
+    color: "#8e9aaf",
+    label: "천장상어",
+    emoji: "🦈",
+    url: "https://emoji-doodujissi.s3.ap-northeast-2.amazonaws.com/crab-game/ocean-run/상어.webp",
+  },
+  {
+    id: "ceiling-eel",
+    color: "#9d4edd",
+    label: "천장장어",
+    emoji: "🐍",
+    url: "https://emoji-doodujissi.s3.ap-northeast-2.amazonaws.com/crab-game/ocean-run/장어.webp",
+  },
+  {
+    id: "ceiling-urchin",
+    color: "#f28482",
+    label: "천장성게",
+    emoji: "🦔",
+    url: "https://emoji-doodujissi.s3.ap-northeast-2.amazonaws.com/crab-game/ocean-run/성게.webp",
+  },
+  {
+    id: "ceiling-octopus",
+    color: "#00afb9",
+    label: "천장문어",
+    emoji: "🐙",
+    url: "https://emoji-doodujissi.s3.ap-northeast-2.amazonaws.com/crab-game/ocean-run/문어.webp",
+  },
+];
+
 const FISH_ASSET: FishAsset = {
   color: "#f4a261",
   emoji: "🦀",
@@ -100,6 +132,7 @@ interface Obstacle {
   speed: number;
   type: ObstacleAsset;
   passed: boolean;
+  isCeiling?: boolean;
 }
 
 interface GameState {
@@ -116,6 +149,7 @@ interface GameState {
   backgroundSpeed: number;
   spawnTimer: number;
   spawnInterval: number;
+  ceilingSpawnTimer: number;
   elapsedTime: number;
   difficultyFactor: number;
   obstacles: Obstacle[];
@@ -139,6 +173,7 @@ const createGameState = (width: number, height: number): GameState => {
     backgroundSpeed: BASE_BACKGROUND_SPEED,
     spawnTimer: 0,
     spawnInterval: BASE_SPAWN_INTERVAL,
+    ceilingSpawnTimer: 0,
     elapsedTime: 0,
     difficultyFactor: 1,
     obstacles: [],
@@ -424,6 +459,23 @@ const OceanRun = () => {
       };
     });
 
+    CEILING_OBSTACLE_ASSETS.forEach((asset) => {
+      if (!asset.url) {
+        obstacleImagesRef.current[asset.id] = null;
+        return;
+      }
+
+      const image = new Image();
+      image.crossOrigin = "anonymous";
+      image.src = asset.url;
+      image.onload = () => {
+        obstacleImagesRef.current[asset.id] = image;
+      };
+      image.onerror = () => {
+        obstacleImagesRef.current[asset.id] = null;
+      };
+    });
+
     if (FISH_ASSET.url) {
       const image = new Image();
       image.crossOrigin = "anonymous";
@@ -498,6 +550,31 @@ const OceanRun = () => {
       speed: game.backgroundSpeed * speedMultiplier,
       type: asset,
       passed: false,
+      isCeiling: false,
+    });
+  }, []);
+
+  const spawnCeilingObstacle = useCallback((game: GameState) => {
+    const asset =
+      CEILING_OBSTACLE_ASSETS[
+        Math.floor(Math.random() * CEILING_OBSTACLE_ASSETS.length)
+      ];
+    const baseSize = Math.max(game.height * 0.12, 48);
+    const size = baseSize * (0.85 + Math.random() * 0.5);
+    const width = size;
+    const height = size;
+    const speedMultiplier = 0.6 + Math.random() * 0.5;
+
+    // 천장에 붙어서 생성 (y = 0)
+    game.obstacles.push({
+      x: game.width + width,
+      y: 0,
+      width,
+      height,
+      speed: game.backgroundSpeed * speedMultiplier,
+      type: asset,
+      passed: false,
+      isCeiling: true,
     });
   }, []);
 
@@ -560,6 +637,13 @@ const OceanRun = () => {
         game.spawnTimer -= game.spawnInterval;
       }
 
+      // 천장 장애물 생성 (5초마다)
+      game.ceilingSpawnTimer += delta;
+      if (game.ceilingSpawnTimer >= 5.0) {
+        spawnCeilingObstacle(game);
+        game.ceilingSpawnTimer = 0;
+      }
+
       for (let index = game.obstacles.length - 1; index >= 0; index -= 1) {
         const obstacle = game.obstacles[index];
         obstacle.x -= (game.backgroundSpeed + obstacle.speed) * delta;
@@ -581,7 +665,7 @@ const OceanRun = () => {
         }
       }
     },
-    [endGame, spawnObstacle, setDifficultyLevel, setScore]
+    [endGame, spawnObstacle, spawnCeilingObstacle, setDifficultyLevel, setScore]
   );
 
   const drawGame = useCallback(() => {
@@ -911,6 +995,9 @@ const OceanRun = () => {
             <InfoItem>
               시간이 지날수록 <Highlight>속도</Highlight>와{" "}
               <Highlight>베게 등장</Highlight>이 빨라져요.
+            </InfoItem>
+            <InfoItem>
+              <Highlight>5초마다</Highlight> 천장에서 특별한 장애물이 나타나요!
             </InfoItem>
             <InfoItem>
               화면 왼쪽 상단에서 <Highlight>점수</Highlight>와{" "}
