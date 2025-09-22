@@ -1,0 +1,13 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'>
+  <defs>
+    <linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#f7d6c3' />
+      <stop offset='100%' stop-color='#c3e7f4' />
+    </linearGradient>
+  </defs>
+  <rect x='12' y='12' width='376' height='376' rx='68' fill='url(#grad)' />
+  <rect x='12' y='12' width='376' height='376' rx='68' fill='rgba(255,255,255,0.35)' />
+  <text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' font-size='140'>🦀</text>
+  <text x='50%' y='72%' text-anchor='middle' dominant-baseline='central' font-size='46' fill='#ffffff' font-family='sans-serif' font-weight='600' opacity='0.92'>FMSN</text>
+  <text x='50%' y='86%' text-anchor='middle' dominant-baseline='central' font-size='26' fill='#ffffff' font-family='sans-serif' opacity='0.85'>불안정 단잠게</text>
+</svg>

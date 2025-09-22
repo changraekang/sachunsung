@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import ShisenSho from "./pages/ShisenSho";
 import CrabMemory from "./pages/CrabMemory";
 import OceanRun from "./pages/OceanRun";
+import SleepTest from "./pages/SleepTest";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/shisen-sho" element={<ShisenSho />} />
           <Route path="/crab-memory" element={<CrabMemory />} />
           <Route path="/ocean-run" element={<OceanRun />} />
+          <Route path="/sleep-test" element={<SleepTest />} />
         </Routes>
       </Router>
     </ThemeProvider>
