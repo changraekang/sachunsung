@@ -190,7 +190,7 @@ const determineResult = (
 const PageWrapper = styled.div`
   min-height: 100vh;
   padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 6vw, 3rem);
-  width: 400px;
+  width: 250px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -261,7 +261,7 @@ const StartButton = styled.button`
 const QuizCard = styled(CardBase)`
   align-items: stretch;
   text-align: left;
-  width: 400px;
+  width: 250px;
   gap: clamp(1.5rem, 3vw, 2rem);
 `;
 
